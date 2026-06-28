@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subject Management - Smart Study Planner</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/global.css?v=1.2">
+    <link rel="stylesheet" href="css/subjects.css?v=1.2">
+    <link rel="stylesheet" href="css/responsive.css?v=1.2">
+    <script src="js/theme.js"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar placeholder -->
+        <div id="sidebar-placeholder"></div>
+        <div class="sidebar-overlay" onclick="toggleSidebarMenu()"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Navbar placeholder -->
+            <div id="navbar-placeholder"></div>
+
+            <!-- Page Title Header -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+                <div class="page-title-header" style="margin-bottom: 0;">
+                    <h1>Subject Portfolio</h1>
+                    <p>Add and edit academic courses, and stay updated on exam deadlines.</p>
+                </div>
+                <button onclick="openAddSubjectModal()" class="btn-primary" style="display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-plus"></i> Add Subject
+                </button>
+            </div>
+
+            <!-- Subjects Layout (Split Screen) -->
+            <div class="subjects-layout">
+                <!-- Left: List of Subject cards -->
+                <div>
+                    <div id="subjects-container" class="subjects-grid">
+                        <!-- Dynamic subject items injected by subjects.js -->
+                        <div class="glass-card" style="grid-column: span 2; text-align: center; padding: 40px 20px;">
+                            <i class="fas fa-book-open" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 15px;"></i>
+                            <h3>No Subjects Added</h3>
+                            <p style="color: var(--text-secondary); margin-bottom: 20px;">You haven't listed any academic courses yet.</p>
+                            <button onclick="openAddSubjectModal()" class="btn-primary">Add Your First Subject</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Exam Deadlines Tracker -->
+                <div class="glass-card exams-section">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="font-size: 1.2rem;"><i class="fas fa-calendar-alt" style="color: var(--danger); margin-right: 8px;"></i> Exam Deadlines</h3>
+                        <button onclick="openAddExamModal()" style="color: var(--primary); font-weight: 600; font-size: 0.85rem;" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='var(--primary)'">
+                            <i class="fas fa-plus"></i> Add Exam
+                        </button>
+                    </div>
+                    
+                    <div id="exams-container" class="exams-list">
+                        <!-- Dynamic exam deadlines lists injected by subjects.js -->
+                        <p style="text-align: center; color: var(--text-secondary); margin: 30px 0;">No exams registered yet.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer placeholder -->
+            <div id="footer-placeholder"></div>
+        </main>
+    </div>
+
+    <!-- Modal placeholder -->
+    <div id="modal-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/subjects.js"></script>
+    <script src="js/particles.js"></script>
+</body>
+</html>

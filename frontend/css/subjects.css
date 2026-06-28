@@ -1,0 +1,172 @@
+/* Subjects Management Grid */
+.subjects-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+.subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.subject-item-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.subject-item-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: var(--subj-color, var(--primary));
+}
+
+.subject-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.subject-card-header h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.subject-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.subject-card-stat {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.subject-card-stat i {
+    width: 16px;
+}
+
+.subject-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 15px;
+}
+
+.subject-action-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-secondary);
+}
+
+.subject-action-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+}
+
+.subject-action-btn.delete:hover {
+    background: var(--danger-glow);
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+/* Exam Deadlines Section */
+.exams-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.exams-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.exam-deadline-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.exam-deadline-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 4px;
+    background: var(--subj-color, var(--primary));
+}
+
+.exam-info h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.exam-info p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.exam-delete-btn {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.exam-delete-btn:hover {
+    color: var(--danger);
+}
+
+/* Color Palette Picker */
+.color-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.color-option {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: var(--transition-fast);
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.color-option.selected {
+    border-color: white;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}

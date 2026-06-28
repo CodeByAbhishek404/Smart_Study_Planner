@@ -1,0 +1,215 @@
+/* Planner & Timetable Styling */
+.planner-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.date-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.date-btn {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-primary);
+}
+
+.date-btn:hover {
+    background: var(--primary-glow);
+    border-color: var(--primary);
+}
+
+.current-date-display {
+    font-size: 1.25rem;
+    font-weight: 700;
+    min-width: 150px;
+    text-align: center;
+}
+
+/* Plan Generator Panel */
+.generator-card {
+    margin-bottom: 30px;
+}
+
+.generator-form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) auto;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+/* Timeline Layout */
+.timeline-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.timeline-hour-row {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+.time-label {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    text-align: right;
+}
+
+.slot-container {
+    position: relative;
+    width: 100%;
+}
+
+.slot-card {
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 6px solid var(--primary);
+    border-radius: var(--radius-md);
+    transition: var(--transition-normal);
+}
+
+.slot-card:hover {
+    transform: translateX(5px);
+}
+
+.slot-card.completed {
+    background: rgba(16, 185, 129, 0.05);
+    border-color: var(--success);
+    opacity: 0.85;
+}
+
+.slot-card.completed .slot-title {
+    text-decoration: line-through;
+    color: var(--text-secondary);
+}
+
+.slot-info-main {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.slot-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.slot-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.slot-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.slot-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.slot-check-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-secondary);
+}
+
+.slot-check-btn:hover {
+    background: var(--success-glow);
+    border-color: var(--success);
+    color: var(--success);
+}
+
+.slot-card.completed .slot-check-btn {
+    background: var(--success);
+    color: white;
+    border-color: var(--success);
+}
+
+/* Empty State */
+.empty-timeline {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.empty-timeline i {
+    font-size: 4rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.empty-timeline h3 {
+    margin-bottom: 8px;
+}
+
+.empty-timeline p {
+    color: var(--text-secondary);
+    max-width: 400px;
+    margin: 0 auto 20px auto;
+}
+
+/* Alert Styles Fallback */
+.alert {
+    padding: 14px 20px;
+    border-radius: var(--radius-md);
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: none;
+    align-items: center;
+    gap: 12px;
+    border-left: 4px solid transparent;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.alert i {
+    font-size: 1.15rem;
+    flex-shrink: 0;
+}
+
+.alert-danger {
+    background-color: rgba(244, 63, 94, 0.12);
+    color: #ff4d6d;
+    border: 1px solid rgba(244, 63, 94, 0.2);
+    border-left-color: var(--danger);
+}
+
+.alert-success {
+    background-color: rgba(16, 185, 129, 0.12);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-left-color: var(--success);
+}

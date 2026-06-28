@@ -1,0 +1,88 @@
+<!-- Reusable Navbar Component -->
+<div class="navbar-wrapper glass-panel" style="position: fixed; top: 0; right: 0; left: 0; height: var(--navbar-height); z-index: 998; border-radius: 0; border-top: none; border-left: none; border-right: none; display: flex; align-items: center; justify-content: space-between; padding: 0 30px;">
+    
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <!-- Mobile Sidebar Hamburger Toggle -->
+        <button id="sidebar-toggle-btn" style="display: none; font-size: 1.25rem; color: var(--text-primary); padding: 8px;">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <!-- Page Title Dynamic Bind -->
+        <h2 id="navbar-page-title" style="font-size: 1.5rem; font-weight: 800;">Dashboard</h2>
+    </div>
+
+    <!-- Right Side Utilities -->
+    <div style="display: flex; align-items: center; gap: 20px;">
+        <!-- Theme Toggle Button -->
+        <div>
+            <button id="theme-toggle-btn" title="Toggle Theme" style="color: var(--text-secondary); font-size: 1.15rem; padding: 8px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-sun theme-toggle-icon"></i>
+            </button>
+        </div>
+
+        <!-- Notifications Dropdown -->
+        <div style="position: relative;" id="notif-dropdown-wrapper">
+            <button id="notif-bell-btn" title="Notifications" style="color: var(--text-secondary); font-size: 1.15rem; padding: 8px; position: relative; display: flex; align-items: center; justify-content: center;">
+                <i class="far fa-bell"></i>
+                <span id="notif-badge" style="position: absolute; top: 4px; right: 4px; width: 8px; height: 8px; background: var(--danger); border-radius: 50%;"></span>
+            </button>
+
+            <!-- Dropdown Body -->
+            <div id="notif-dropdown" class="glass-panel" style="display: none; position: absolute; top: 45px; right: 0; width: 320px; max-height: 400px; border-radius: var(--radius-md); box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 1005; padding: 15px; flex-direction: column; gap: 10px; animation: slideDownNotif 0.25s cubic-bezier(0.16, 1, 0.3, 1);">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; margin-bottom: 5px;">
+                    <h4 style="margin: 0; font-size: 0.95rem; font-weight: 700;">Notifications</h4>
+                    <button id="clear-notif-btn" style="font-size: 0.75rem; color: var(--primary); font-weight: 600;">Clear All</button>
+                </div>
+                <div id="notif-list" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; max-height: 300px; padding-right: 5px;">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Date Display widget -->
+        <div id="navbar-date-widget" style="font-family: var(--font-heading); font-weight: 600; font-size: 0.9rem; color: var(--text-secondary); background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border); padding: 6px 12px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 8px;">
+            <i class="far fa-calendar"></i>
+            <span id="current-nav-date">Wednesday, 20 May</span>
+        </div>
+    </div>
+</div>
+
+<style>
+#navbar-page-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: font-size 0.2s ease;
+}
+
+@keyframes slideDownNotif {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 992px) {
+    .navbar-wrapper {
+        padding: 0 20px;
+    }
+    #sidebar-toggle-btn {
+        display: block !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #navbar-page-title {
+        font-size: 1.15rem !important;
+    }
+    .navbar-wrapper {
+        padding: 0 12px !important;
+    }
+    .navbar-wrapper > div {
+        gap: 8px !important;
+    }
+    #notif-dropdown {
+        width: 280px !important;
+        right: -15px !important;
+        max-height: 350px !important;
+    }
+}
+</style>

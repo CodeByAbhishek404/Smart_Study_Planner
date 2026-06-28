@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks & Progress - Smart Study Planner</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/global.css?v=1.2">
+    <link rel="stylesheet" href="css/progress.css?v=1.2">
+    <link rel="stylesheet" href="css/responsive.css?v=1.2">
+    <script src="js/theme.js"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar placeholder -->
+        <div id="sidebar-placeholder"></div>
+        <div class="sidebar-overlay" onclick="toggleSidebarMenu()"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Navbar placeholder -->
+            <div id="navbar-placeholder"></div>
+
+            <!-- Page Title Header -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+                <div class="page-title-header" style="margin-bottom: 0;">
+                    <h1>Task Backlog & Progress</h1>
+                    <p>Track subtopics completion rates and view analytics diagrams.</p>
+                </div>
+                <button onclick="openAddTaskModal()" class="btn-primary" style="display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-plus"></i> Add Topic/Task
+                </button>
+            </div>
+
+            <!-- Tasks Split Layout -->
+            <div class="tasks-layout">
+                <!-- Left: Tasks Checklists -->
+                <div class="glass-card" style="height: fit-content;">
+                    <div class="tasks-controls">
+                        <h2 style="font-size: 1.2rem;">Topic Backlog</h2>
+                        <!-- Filter Tabs -->
+                        <div class="filter-tabs">
+                            <button onclick="filterTasks('all')" id="filter-all" class="filter-tab active">All</button>
+                            <button onclick="filterTasks('pending')" id="filter-pending" class="filter-tab">Pending</button>
+                            <button onclick="filterTasks('completed')" id="filter-completed" class="filter-tab">Completed</button>
+                        </div>
+                    </div>
+
+                    <!-- Tasks List -->
+                    <div id="tasks-container" class="tasks-list">
+                        <!-- Dynamic task items injected by progress.js -->
+                        <p style="text-align: center; color: var(--text-secondary); margin: 40px 0;">No tasks found.</p>
+                    </div>
+                </div>
+
+                <!-- Right: Analytics Charts -->
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <!-- Study Hours Spent distribution chart -->
+                    <div class="glass-card">
+                        <h3 style="font-size: 1.1rem; margin-bottom: 15px;"><i class="fas fa-chart-pie" style="color: var(--primary); margin-right: 8px;"></i> Hours Spent per Subject</h3>
+                        <div style="position: relative; height: 260px; width: 100%;">
+                            <canvas id="hoursSpentChart"></canvas>
+                            <div id="hours-chart-empty" class="chart-empty-overlay" style="display: none; position: absolute; inset: 0; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 10px; background: rgba(15, 23, 42, 0.4); border-radius: var(--radius-sm); padding: 15px;">
+                                <i class="fas fa-pie-chart" style="font-size: 2.5rem; color: var(--text-muted);"></i>
+                                <span style="font-size: 0.9rem; color: var(--text-secondary); font-weight: 600;">No study hours logged yet</span>
+                                <span style="font-size: 0.75rem; color: var(--text-muted); max-width: 80%; line-height: 1.4;">Mark study blocks as completed on your Dashboard to populate this graph!</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Weekly completion stats chart -->
+                    <div class="glass-card">
+                        <h3 style="font-size: 1.1rem; margin-bottom: 15px;"><i class="fas fa-chart-bar" style="color: var(--success); margin-right: 8px;"></i> Daily Completions</h3>
+                        <div style="position: relative; height: 260px; width: 100%;">
+                            <canvas id="weeklyBarChart"></canvas>
+                            <div id="weekly-chart-empty" class="chart-empty-overlay" style="display: none; position: absolute; inset: 0; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 10px; background: rgba(15, 23, 42, 0.4); border-radius: var(--radius-sm); padding: 15px;">
+                                <i class="fas fa-calendar-check" style="font-size: 2.5rem; color: var(--text-muted);"></i>
+                                <span style="font-size: 0.9rem; color: var(--text-secondary); font-weight: 600;">No active schedule found</span>
+                                <span style="font-size: 0.75rem; color: var(--text-muted); max-width: 80%; line-height: 1.4;">Generate a weekly study timetable to track daily completion ratios!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer placeholder -->
+            <div id="footer-placeholder"></div>
+        </main>
+    </div>
+
+    <!-- Modal placeholder -->
+    <div id="modal-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/particles.js"></script>
+</body>
+</html>

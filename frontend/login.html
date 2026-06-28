@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Smart Study Planner</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/global.css?v=1.2">
+    <link rel="stylesheet" href="css/auth.css?v=1.2">
+    <link rel="stylesheet" href="css/responsive.css?v=1.2">
+    <script src="js/theme.js"></script>
+</head>
+<body style="position: relative;">
+    
+    <!-- Floating Theme Toggle -->
+    <div style="position: absolute; top: 20px; right: 20px; z-index: 100;">
+        <button onclick="toggleTheme()" class="glass-panel" title="Toggle Theme" style="padding: 10px 14px; border-radius: 50%; color: var(--text-secondary); font-size: 1.2rem; display: flex; align-items: center; justify-content: center;">
+            <i class="fas fa-sun theme-toggle-icon"></i>
+        </button>
+    </div>
+    
+    <div class="auth-wrapper">
+        <div class="auth-container">
+            <!-- Brand -->
+            <div class="auth-brand">
+                <a href="index.html">
+                    <i class="fas fa-brain"></i>
+                    <h1>StudyPlanner</h1>
+                </a>
+            </div>
+
+            <!-- Card Box -->
+            <div class="glass-card auth-card">
+                <h2 class="auth-title">Welcome Back</h2>
+                
+                <!-- Alert Notifications -->
+                <div id="auth-alert" class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="auth-alert-text">Error message here</span>
+                </div>
+
+                <!-- Form -->
+                <form id="login-form" novalidate>
+                    <div class="input-group">
+                        <label for="username" class="input-label">Username</label>
+                        <input type="text" id="username" class="input-field" placeholder="Enter your username" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password" class="input-label">Password</label>
+                        <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                            <input type="password" id="password" class="input-field" placeholder="Enter your password" required style="padding-right: 45px;">
+                            <button type="button" id="toggle-password" style="position: absolute; right: 15px; background: none; border: none; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; padding: 0;">
+                                <i class="far fa-eye" id="password-eye-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style="text-align: right; margin-top: -12px; margin-bottom: 20px;">
+                        <a href="#" id="forgot-password-link" style="font-size: 0.85rem; color: var(--primary); font-weight: 500; text-decoration: none; transition: var(--transition-fast);" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='var(--primary)'">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Sign In</button>
+                </form>
+
+                <!-- Footer link -->
+                <div class="auth-footer">
+                    Don't have an account? <a href="register.html">Create one now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal Backdrop -->
+    <div id="forgot-password-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center; box-sizing: border-box; padding: 20px;">
+        <!-- Modal Card -->
+        <div class="glass-card" id="forgot-modal-card" style="width: 100%; max-width: 400px; padding: 30px; position: relative; border-radius: var(--radius-lg); box-sizing: border-box; transform: scale(0.9); transition: transform 0.3s ease-out; background: var(--glass-bg); border: 1px solid var(--glass-border); box-shadow: 0 8px 32px 0 var(--glass-shadow);">
+            <!-- Close Button -->
+            <button id="close-forgot-modal" type="button" style="position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--text-secondary); font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='none'">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 style="font-size: 1.3rem; margin-bottom: 8px; font-family: var(--font-heading); color: var(--text-primary); margin-top: 0; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-key" style="color: var(--primary);"></i> Reset Password
+            </h3>
+            <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.4; margin-top: 0;">Enter your registered details and a new password below to reset access.</p>
+            
+            <!-- Alert Box for Modal -->
+            <div id="forgot-alert" class="alert alert-danger" style="display: none; padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.9rem; margin-bottom: 15px; align-items: center; gap: 10px;">
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="forgot-alert-text">Error message here</span>
+            </div>
+            <div id="forgot-success" class="alert alert-success" style="display: none; padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.9rem; margin-bottom: 15px; align-items: center; gap: 10px;">
+                <i class="fas fa-check-circle"></i>
+                <span id="forgot-success-text">Success message here</span>
+            </div>
+
+            <!-- Forgot Form -->
+            <form id="forgot-form" novalidate>
+                <div class="input-group">
+                    <label for="forgot-username" class="input-label">Username</label>
+                    <input type="text" id="forgot-username" class="input-field" placeholder="Enter your username" required>
+                </div>
+                <div class="input-group">
+                    <label for="forgot-email" class="input-label">Email Address</label>
+                    <input type="email" id="forgot-email" class="input-field" placeholder="Enter your email" required>
+                </div>
+                <div class="input-group">
+                    <label for="forgot-new-password" class="input-label">New Password</label>
+                    <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                        <input type="password" id="forgot-new-password" class="input-field" placeholder="Enter new password" required style="padding-right: 45px;">
+                        <button type="button" id="toggle-forgot-password" style="position: absolute; right: 15px; background: none; border: none; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; padding: 0;">
+                            <i class="far fa-eye" id="forgot-password-eye-icon"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 15px; height: 46px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <i class="fas fa-cog fa-spin" id="forgot-spinner" style="display: none;"></i>
+                    <span>Reset Password</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/validation.js"></script>
+    <script src="js/particles.js"></script>
+</body>
+</html>

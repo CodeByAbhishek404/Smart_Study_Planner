@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - Smart Study Planner</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/global.css?v=1.2">
+    <link rel="stylesheet" href="css/auth.css?v=1.2">
+    <link rel="stylesheet" href="css/responsive.css?v=1.2">
+    <script src="js/theme.js"></script>
+</head>
+<body style="position: relative;">
+    
+    <!-- Floating Theme Toggle -->
+    <div style="position: absolute; top: 20px; right: 20px; z-index: 100;">
+        <button onclick="toggleTheme()" class="glass-panel" title="Toggle Theme" style="padding: 10px 14px; border-radius: 50%; color: var(--text-secondary); font-size: 1.2rem; display: flex; align-items: center; justify-content: center;">
+            <i class="fas fa-sun theme-toggle-icon"></i>
+        </button>
+    </div>
+    
+    <div class="auth-wrapper">
+        <div class="auth-container" style="max-width: 500px;">
+            <!-- Brand -->
+            <div class="auth-brand">
+                <a href="index.html">
+                    <i class="fas fa-brain"></i>
+                    <h1>StudyPlanner</h1>
+                </a>
+            </div>
+
+            <!-- Card Box -->
+            <div class="glass-card auth-card">
+                <h2 class="auth-title">Create Student Account</h2>
+                
+                <!-- Alert Notifications -->
+                <div id="auth-alert" class="alert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="auth-alert-text">Status message here</span>
+                </div>
+
+                <!-- Form -->
+                <form id="register-form" novalidate>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="input-group">
+                            <label for="firstName" class="input-label">First Name</label>
+                            <input type="text" id="firstName" class="input-field" placeholder="John" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="lastName" class="input-label">Last Name</label>
+                            <input type="text" id="lastName" class="input-field" placeholder="Doe" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="username" class="input-label">Username</label>
+                        <input type="text" id="username" class="input-field" placeholder="Choose a username" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="email" class="input-label">Email Address</label>
+                        <input type="email" id="email" class="input-field" placeholder="email@study.com" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password" class="input-label">Password</label>
+                        <input type="password" id="password" class="input-field" placeholder="At least 6 characters" required>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Sign Up</button>
+                </form>
+
+                <!-- Footer link -->
+                <div class="auth-footer">
+                    Already have an account? <a href="login.html">Sign In instead</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/validation.js"></script>
+    <script src="js/particles.js"></script>
+</body>
+</html>

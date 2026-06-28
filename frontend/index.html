@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Study Planner - Maximize Your Academic Potential</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/global.css?v=1.2">
+    <link rel="stylesheet" href="css/auth.css?v=1.2">
+    <link rel="stylesheet" href="css/responsive.css?v=1.2">
+    <script src="js/theme.js"></script>
+</head>
+<body style="display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; position: relative;">
+    
+    <!-- Floating Theme Toggle -->
+    <div style="position: absolute; top: 20px; right: 20px; z-index: 100;">
+        <button onclick="toggleTheme()" class="glass-panel" title="Toggle Theme" style="padding: 10px 14px; border-radius: 50%; color: var(--text-secondary); font-size: 1.2rem; display: flex; align-items: center; justify-content: center;">
+            <i class="fas fa-sun theme-toggle-icon"></i>
+        </button>
+    </div>
+    
+    <div class="welcome-container">
+        <!-- Logo -->
+        <div class="welcome-logo">
+            <i class="fas fa-brain"></i>
+        </div>
+
+        <!-- Headings -->
+        <h1 class="welcome-title">Master Your Studies with <br><span class="text-gradient-primary">Smart Study Planner</span></h1>
+        <p class="welcome-subtitle">Stop guessing what to study next. Automatically organize subjects, exams, and topics into optimized daily schedules based on deadlines, difficulty, and your study capacity.</p>
+
+        <!-- Access buttons -->
+        <div class="welcome-actions">
+            <a href="login.html" class="btn-primary" style="display: inline-block;">Get Started - Sign In</a>
+            <a href="register.html" class="btn-secondary" style="display: inline-block;">Create Account</a>
+        </div>
+
+        <!-- Features list -->
+        <div class="welcome-features">
+            <div class="feature-card glass-panel">
+                <i class="fas fa-magic"></i>
+                <h3>Smart Scheduling</h3>
+                <p>Prioritizes subjects using difficulty, proximity to exams, and pending topics for maximum effectiveness.</p>
+            </div>
+            <div class="feature-card glass-panel">
+                <i class="fas fa-chart-line"></i>
+                <h3>Progress Analytics</h3>
+                <p>Track your task completions and study hours with detailed interactive progress charts.</p>
+            </div>
+            <div class="feature-card glass-panel">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Exam Deadlines</h3>
+                <p>Stay on top of upcoming exams, midterms, and project due dates with automated schedule urgency adjustments.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/particles.js"></script>
+</body>
+</html>

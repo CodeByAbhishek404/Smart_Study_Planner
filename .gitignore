@@ -1,0 +1,27 @@
+# Maven Build
+backend/target/
+.maven/
+maven.zip
+dependency-reduced-pom.xml
+
+# Log Files
+*.log
+backend-run.log
+
+# IDE and Editor Files
+.idea/
+*.iml
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.settings/
+.classpath
+.project
+
+# OS temporary files
+Thumbs.db
+ehthumbs.db
+Desktop.ini

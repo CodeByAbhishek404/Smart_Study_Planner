@@ -1,0 +1,62 @@
+<!-- Reusable Sidebar Component -->
+<div class="sidebar-container glass-panel" style="position: fixed; top: 0; left: 0; height: 100vh; width: var(--sidebar-width); z-index: 1000; transition: transform var(--transition-normal); border-radius: 0; border-top: none; border-left: none; border-bottom: none; display: flex; flex-direction: column; justify-content: space-between; padding: 24px 16px;">
+    <div>
+        <!-- Sidebar Brand Logo -->
+        <a href="dashboard.html" class="sidebar-brand" style="display: flex; align-items: center; gap: 12px; padding: 8px 12px 24px 12px; border-bottom: 1px solid var(--glass-border); margin-bottom: 24px;">
+            <i class="fas fa-brain" style="font-size: 1.8rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+            <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em;">StudyPlanner</span>
+        </a>
+
+        <!-- Navigation Links -->
+        <nav class="sidebar-nav" style="display: flex; flex-direction: column; gap: 8px;">
+            <a href="dashboard.html" id="nav-dashboard" class="nav-link" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.95rem; font-weight: 500; color: var(--text-secondary); transition: var(--transition-fast);">
+                <i class="fas fa-th-large" style="width: 20px;"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="planner.html" id="nav-planner" class="nav-link" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.95rem; font-weight: 500; color: var(--text-secondary); transition: var(--transition-fast);">
+                <i class="fas fa-calendar-alt" style="width: 20px;"></i>
+                <span>Study Planner</span>
+            </a>
+            <a href="subjects.html" id="nav-subjects" class="nav-link" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.95rem; font-weight: 500; color: var(--text-secondary); transition: var(--transition-fast);">
+                <i class="fas fa-graduation-cap" style="width: 20px;"></i>
+                <span>Subjects</span>
+            </a>
+            <a href="progress.html" id="nav-progress" class="nav-link" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.95rem; font-weight: 500; color: var(--text-secondary); transition: var(--transition-fast);">
+                <i class="fas fa-tasks" style="width: 20px;"></i>
+                <span>Tasks & Progress</span>
+            </a>
+            <a href="profile.html" id="nav-profile" class="nav-link" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.95rem; font-weight: 500; color: var(--text-secondary); transition: var(--transition-fast);">
+                <i class="fas fa-user-cog" style="width: 20px;"></i>
+                <span>Profile Settings</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- User Section footer -->
+    <div class="sidebar-user" style="padding-top: 16px; border-top: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div id="user-avatar-initials" style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; justify-content: center; align-items: center; font-family: var(--font-heading); font-weight: 700; color: white;">U</div>
+            <div style="display: flex; flex-direction: column;">
+                <span id="sidebar-username" style="font-weight: 600; font-size: 0.9rem; line-height: 1.2;">Student</span>
+                <span style="font-size: 0.75rem; color: var(--text-secondary);">Active Plan</span>
+            </div>
+        </div>
+        <button onclick="authLogout()" title="Log out" style="color: var(--text-muted); font-size: 1.1rem; padding: 6px;" onmouseover="this.style.color='var(--danger)'" onmouseout="this.style.color='var(--text-muted)'">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+    </div>
+</div>
+
+<style>
+/* Sidebar hover state styling */
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-primary) !important;
+}
+.nav-link.active {
+    background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
+    color: var(--text-primary) !important;
+    border-left: 3px solid var(--primary);
+    padding-left: 13px !important; /* adjust for border */
+}
+</style>

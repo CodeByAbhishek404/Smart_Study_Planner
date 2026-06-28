@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Smart Study Planner</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/global.css?v=1.2">
+    <link rel="stylesheet" href="css/dashboard.css?v=1.2">
+    <link rel="stylesheet" href="css/planner.css?v=1.2">
+    <link rel="stylesheet" href="css/responsive.css?v=1.2">
+    <script src="js/theme.js"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar placeholder -->
+        <div id="sidebar-placeholder"></div>
+        <div class="sidebar-overlay" onclick="toggleSidebarMenu()"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Navbar placeholder -->
+            <div id="navbar-placeholder"></div>
+
+            <!-- Page Title Header -->
+            <div class="page-title-header">
+                <h1>Welcome Back, <span id="student-name" class="text-gradient-primary">Student</span>!</h1>
+                <p>Here is your academic and study progress overview for today.</p>
+            </div>
+
+            <!-- Stats Grid counters -->
+            <div class="dashboard-grid">
+                <!-- Subjects Card -->
+                <div class="glass-card stat-card">
+                    <div class="stat-icon primary"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="stat-info">
+                        <h3 id="stat-subjects">0</h3>
+                        <p>Total Subjects</p>
+                    </div>
+                </div>
+                <!-- Tasks Card -->
+                <div class="glass-card stat-card">
+                    <div class="stat-icon secondary"><i class="fas fa-tasks"></i></div>
+                    <div class="stat-info">
+                        <h3 id="stat-tasks">0/0</h3>
+                        <p>Tasks Completed</p>
+                    </div>
+                </div>
+                <!-- Exams Card -->
+                <div class="glass-card stat-card">
+                    <div class="stat-icon danger"><i class="fas fa-calendar-times"></i></div>
+                    <div class="stat-info">
+                        <h3 id="stat-exams">0</h3>
+                        <p>Upcoming Exams</p>
+                    </div>
+                </div>
+                <!-- Today Study hours Card -->
+                <div class="glass-card stat-card">
+                    <div class="stat-icon success"><i class="fas fa-clock"></i></div>
+                    <div class="stat-info">
+                        <h3 id="stat-hours">0/0h</h3>
+                        <p>Today's Study Slots</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics & Productivity Grid -->
+            <div class="analytics-grid">
+                <!-- Today's Schedule Timeline -->
+                <div class="glass-card">
+                    <div class="widget-header">
+                        <h2>Today's Timetable</h2>
+                        <a href="planner.html" class="widget-link">Manage Schedule <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <!-- Today Schedule Timeline Rows -->
+                    <div id="today-timeline" class="timeline-container" style="max-height: 400px; overflow-y: auto; padding-right: 5px;">
+                        <!-- Will be populated dynamically by dashboard.js -->
+                        <div class="empty-timeline">
+                            <i class="far fa-calendar-alt"></i>
+                            <h3>No Schedule Generated</h3>
+                            <p>You haven't generated a study schedule for today yet.</p>
+                            <a href="planner.html" class="btn-primary" style="display: inline-block;">Generate Plan</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Productivity Score Circle -->
+                <div class="glass-card" style="display: flex; flex-direction: column;">
+                    <div class="widget-header">
+                        <h2>Productivity Score</h2>
+                    </div>
+                    <div class="circle-progress-container">
+                        <svg class="circle-svg" width="200" height="200" viewBox="0 0 200 200">
+                            <!-- Gradient -->
+                            <defs>
+                                <linearGradient id="productivity-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="var(--primary)" />
+                                    <stop offset="100%" stop-color="var(--secondary)" />
+                                </linearGradient>
+                            </defs>
+                            <circle class="circle-bg" cx="100" cy="100" r="80"></circle>
+                            <circle id="prod-progress-circle" class="circle-bar" cx="100" cy="100" r="80"></circle>
+                            <!-- Text overlay -->
+                            <text class="circle-text" x="100" y="105" text-anchor="middle">
+                                <tspan id="prod-score-val">0</tspan>%
+                            </text>
+                            <text class="circle-label" x="100" y="130" text-anchor="middle">COMPLETED</text>
+                        </svg>
+                        <p class="productivity-tip">Complete your scheduled study blocks today to raise your score!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer placeholder -->
+            <div id="footer-placeholder"></div>
+        </main>
+    </div>
+
+    <!-- Modal placeholder -->
+    <div id="modal-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/particles.js"></script>
+</body>
+</html>

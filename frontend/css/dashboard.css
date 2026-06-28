@@ -1,0 +1,181 @@
+/* Dashboard Layout & Widgets */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.stat-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: var(--radius-md);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.stat-icon.primary { background: var(--primary-glow); color: var(--primary); }
+.stat-icon.secondary { background: var(--secondary-glow); color: var(--secondary); }
+.stat-icon.success { background: var(--success-glow); color: var(--success); }
+.stat-icon.warning { background: var(--warning-glow); color: var(--warning); }
+.stat-icon.danger { background: var(--danger-glow); color: var(--danger); }
+.stat-icon.info { background: var(--info-glow); color: var(--info); }
+
+.stat-info h3 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+}
+
+.stat-info p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-family: var(--font-heading);
+    font-weight: 500;
+}
+
+/* Dashboard Analytics Grid */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.chart-card {
+    height: 380px;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* Quick Timeline & Progress Widgets */
+.widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.widget-header h2 {
+    font-size: 1.25rem;
+}
+
+.widget-link {
+    font-size: 0.85rem;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.widget-link:hover {
+    color: var(--secondary);
+    text-decoration: underline;
+}
+
+.dashboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+}
+
+.item-main {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.subject-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.item-details h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.item-details p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.item-meta {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+/* Circular Productivity Graph */
+.circle-progress-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 20px 0;
+}
+
+.circle-svg {
+    /* SVG container remains horizontal to keep text upright */
+}
+
+.circle-bg, .circle-bar {
+    fill: none;
+    stroke-width: 12;
+    transform: rotate(-90deg);
+    transform-origin: 100px 100px;
+}
+
+.circle-bg {
+    stroke: rgba(255, 255, 255, 0.03);
+}
+
+.circle-bar {
+    stroke: url(#productivity-grad);
+    stroke-linecap: round;
+    stroke-dasharray: 502.4; /* 2 * PI * r (r=80) */
+    stroke-dashoffset: 502.4; /* 100% empty */
+    transition: stroke-dashoffset 1s ease-in-out;
+}
+
+.circle-text {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 800;
+    fill: var(--text-primary);
+}
+.circle-label {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    fill: var(--text-secondary);
+}
+.productivity-tip {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 15px;
+    padding: 0 10px;
+}
