@@ -138,11 +138,19 @@ public class PlannerService {
                     int studyMinutes = totalMinutes; // No break time subtracted in equal split mode
                     LocalTime slotEnd = slotStart.plusMinutes(studyMinutes);
 
-                    // Link task if available
+                    // Link task if available, else auto-generate a generic session task
                     StudyTask assignedTask = null;
                     List<StudyTask> subjectTasks = tasksBySubject.get(chosenSubject);
                     if (subjectTasks != null && !subjectTasks.isEmpty()) {
                         assignedTask = subjectTasks.remove(0);
+                    } else {
+                        assignedTask = new StudyTask(
+                                chosenSubject,
+                                chosenSubject.getName() + " Study Session",
+                                (double) studyMinutes / 60.0,
+                                currentPlanDate
+                        );
+                        assignedTask = taskRepository.save(assignedTask);
                     }
 
                     // Create plan slot
@@ -187,11 +195,19 @@ public class PlannerService {
                     int studyMinutes = totalMinutes; // Keep the full session block duration as defined in the subject portfolio
                     LocalTime slotEnd = slotStart.plusMinutes(studyMinutes);
 
-                    // Link task if available
+                    // Link task if available, else auto-generate a generic session task
                     StudyTask assignedTask = null;
                     List<StudyTask> subjectTasks = tasksBySubject.get(chosenSubject);
                     if (subjectTasks != null && !subjectTasks.isEmpty()) {
                         assignedTask = subjectTasks.remove(0); // Assign the first task and remove from backlog
+                    } else {
+                        assignedTask = new StudyTask(
+                                chosenSubject,
+                                chosenSubject.getName() + " Study Session",
+                                (double) studyMinutes / 60.0,
+                                currentPlanDate
+                        );
+                        assignedTask = taskRepository.save(assignedTask);
                     }
 
                     // Create plan slot

@@ -45,6 +45,19 @@ function renderTasksBacklog() {
     const container = document.getElementById('tasks-container');
     if (!container) return;
 
+    // Update Counter Badge
+    const totalTasks = activeTasksList.length;
+    const completedTasks = activeTasksList.filter(t => t.completed).length;
+    const counterBadge = document.getElementById('task-counter-badge');
+    if (counterBadge) {
+        counterBadge.innerText = `${completedTasks}/${totalTasks} Completed`;
+        if (totalTasks > 0 && completedTasks === totalTasks) {
+            counterBadge.style.backgroundColor = 'var(--success)';
+        } else {
+            counterBadge.style.backgroundColor = 'var(--primary)';
+        }
+    }
+
     let filtered = activeTasksList;
     if (currentFilterTab === 'pending') {
         filtered = activeTasksList.filter(t => !t.completed);

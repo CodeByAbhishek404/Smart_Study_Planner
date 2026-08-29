@@ -42,7 +42,10 @@
                 <!-- Left: Tasks Checklists -->
                 <div class="glass-card" style="height: fit-content;">
                     <div class="tasks-controls">
-                        <h2 style="font-size: 1.2rem;">Topic Backlog</h2>
+                        <h2 style="font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
+                            Topic Backlog
+                            <span id="task-counter-badge" class="task-subject-badge" style="background-color: var(--primary); font-size: 0.8rem; padding: 4px 10px; border-radius: 12px;">0/0 Completed</span>
+                        </h2>
                         <!-- Filter Tabs -->
                         <div class="filter-tabs">
                             <button onclick="filterTasks('all')" id="filter-all" class="filter-tab active">All</button>
