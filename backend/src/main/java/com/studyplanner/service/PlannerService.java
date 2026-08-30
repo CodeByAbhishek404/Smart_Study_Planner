@@ -81,12 +81,14 @@ public class PlannerService {
             Map<Subject, List<StudyTask>> tasksBySubject = new HashMap<>();
 
             for (Subject subject : subjects) {
-                // Difficulty factor (EASY=2.0, MEDIUM=5.0, HARD=10.0)
-                double difficultyWeight = 5.0;
-                if (subject.getDifficulty() == DifficultyLevel.EASY) difficultyWeight = 2.0;
-                else if (subject.getDifficulty() == DifficultyLevel.HARD) difficultyWeight = 10.0;
+                // 1. Difficulty (D) factor: EASY=1.0, MEDIUM=2.0, HARD=3.0
+                double dValue = 2.0; // default MEDIUM
+                if (subject.getDifficulty() == DifficultyLevel.EASY) dValue = 1.0;
+                else if (subject.getDifficulty() == DifficultyLevel.HARD) dValue = 3.0;
+                
+                double difficultyComponent = dValue * 2.5; // (D * 2.5)
 
-                // Exam urgency factor
+                // 2. Exam urgency factor (U)
                 double urgencyWeight = 0.0;
                 Optional<Exam> nearestExam = exams.stream()
                          .filter(e -> e.getSubject().getId().equals(subject.getId()))
@@ -94,29 +96,29 @@ public class PlannerService {
                 if (nearestExam.isPresent()) {
                     long daysToExam = ChronoUnit.DAYS.between(currentPlanDate, nearestExam.get().getExamDate().toLocalDate());
                     if (daysToExam >= 0) {
-                        urgencyWeight = 15.0 / (daysToExam + 1.0); // Extreme high weight if exam is today/tomorrow
+                        urgencyWeight = 15.0 / (daysToExam + 1.0); // U
                     }
                 }
 
-                // Pending tasks weight
+                // 3. Pending tasks weight (W)
                 List<StudyTask> subjectTasks = pendingTasks.stream()
                         .filter(t -> t.getSubject().getId().equals(subject.getId()))
                         .sorted(Comparator.comparing(StudyTask::getDueDate, Comparator.nullsLast(Comparator.naturalOrder())))
                         .collect(Collectors.toList());
                 tasksBySubject.put(subject, subjectTasks);
-                double taskWeight = subjectTasks.size() * 1.5;
+                double taskWeight = subjectTasks.size() * 1.5; // W
 
-                // Calculate base priority weight
-                double priorityWeight = difficultyWeight + urgencyWeight + taskWeight;
+                // Calculate Base Weight for Penalty Scaling: (D * 2.5) + U + W
+                double baseWeight = difficultyComponent + urgencyWeight + taskWeight;
 
-                // Subtract a penalty based on cumulative study hours already scheduled relative to priority weight
-                // This ensures subjects get scheduled in proportion to their priorities (fair-share scheduling)
+                // 4. Fair-Share History Penalty (H)
                 double historyPenalty = 0.0;
-                if (priorityWeight > 0.0) {
-                    historyPenalty = (cumulativeHoursScheduled.getOrDefault(subject.getId(), 0.0) / priorityWeight) * 15.0;
+                if (baseWeight > 0.0) {
+                    historyPenalty = (cumulativeHoursScheduled.getOrDefault(subject.getId(), 0.0) / baseWeight) * 15.0; // H
                 }
 
-                double totalPriority = priorityWeight - historyPenalty;
+                // Final Priority Formula: P(S) = (D * 2.5) + U + W - H
+                double totalPriority = difficultyComponent + urgencyWeight + taskWeight - historyPenalty;
                 priorities.put(subject, totalPriority);
             }
 
