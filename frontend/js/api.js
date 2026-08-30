@@ -1,5 +1,5 @@
 /* Smart Study Planner - REST API Client Utility */
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'https://smart-study-planner-8ehw.onrender.com/api';
 
 const ApiClient = {
     // Retrieve stored JWT token
