@@ -8,11 +8,15 @@ public class DashboardSummary {
     private double studyHoursScheduled;
     private double studyHoursCompleted;
     private int productivityScore; // Percentage of slots completed
+    private int xp;
+    private int level;
+    private int currentStreak;
 
     public DashboardSummary() {}
 
     public DashboardSummary(int totalSubjects, int totalTasks, int completedTasks, int upcomingExams, 
-                            double studyHoursScheduled, double studyHoursCompleted, int productivityScore) {
+                            double studyHoursScheduled, double studyHoursCompleted, int productivityScore,
+                            int xp, int level, int currentStreak) {
         this.totalSubjects = totalSubjects;
         this.totalTasks = totalTasks;
         this.completedTasks = completedTasks;
@@ -20,6 +24,9 @@ public class DashboardSummary {
         this.studyHoursScheduled = studyHoursScheduled;
         this.studyHoursCompleted = studyHoursCompleted;
         this.productivityScore = productivityScore;
+        this.xp = xp;
+        this.level = level;
+        this.currentStreak = currentStreak;
     }
 
     // Getters and Setters
@@ -43,4 +50,13 @@ public class DashboardSummary {
 
     public int getProductivityScore() { return productivityScore; }
     public void setProductivityScore(int productivityScore) { this.productivityScore = productivityScore; }
+
+    public int getXp() { return xp; }
+    public void setXp(int xp) { this.xp = xp; }
+
+    public int getLevel() { return level; }
+    public void setLevel(int level) { this.level = level; }
+
+    public int getCurrentStreak() { return currentStreak; }
+    public void setCurrentStreak(int currentStreak) { this.currentStreak = currentStreak; }
 }

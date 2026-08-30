@@ -194,3 +194,36 @@ async function handleGenerateSchedule(e) {
         }
     }
 }
+
+// Export schedule to iCal
+async function exportICal() {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) throw new Error('Not authenticated');
+
+        // Create a hidden iframe or use fetch to download
+        const response = await fetch('http://localhost:8080/api/planner/export', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to export calendar');
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'study_schedule.ics';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        
+    } catch (err) {
+        alert('Could not export calendar: ' + err.message);
+    }
+}

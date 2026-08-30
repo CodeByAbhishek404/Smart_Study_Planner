@@ -76,7 +76,12 @@
 
             <!-- Timetable List -->
             <div class="glass-card">
-                <h3 style="font-size: 1.2rem; margin-bottom: 20px;"><i class="far fa-clock" style="color: var(--info); margin-right: 8px;"></i> Study Schedule Timeline</h3>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                    <h3 style="font-size: 1.2rem; margin: 0;"><i class="far fa-clock" style="color: var(--info); margin-right: 8px;"></i> Study Schedule Timeline</h3>
+                    <button class="btn-outline" onclick="exportICal()" style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; padding: 8px 16px;">
+                        <i class="far fa-calendar-plus"></i> Export to Calendar
+                    </button>
+                </div>
                 <div id="planner-timeline" class="timeline-container">
                     <!-- Dynamic timetable blocks injected by planner.js -->
                     <div class="empty-timeline">

@@ -44,6 +44,24 @@ function updateStatsCounters(summary) {
         const completed = summary.studyHoursCompleted.toFixed(1);
         hoursCount.textContent = `${completed}/${scheduled}h`;
     }
+
+    // Gamification mapping
+    const streakElement = document.getElementById('stat-streak');
+    const levelElement = document.getElementById('stat-level');
+    const xpTextElement = document.getElementById('stat-xp-text');
+    const xpBarElement = document.getElementById('stat-xp-bar');
+
+    if (streakElement) streakElement.textContent = `${summary.currentStreak} Days`;
+    if (levelElement) levelElement.textContent = summary.level;
+    
+    if (xpTextElement && xpBarElement) {
+        // Calculate progress to next level (500 XP per level)
+        const xpInCurrentLevel = summary.xp % 500;
+        const percentage = (xpInCurrentLevel / 500) * 100;
+        
+        xpTextElement.textContent = `${xpInCurrentLevel} / 500 XP`;
+        xpBarElement.style.width = `${percentage}%`;
+    }
 }
 
 // Drive Productivity Circle Animation
@@ -124,4 +142,62 @@ async function toggleSlotStatus(slotId) {
     } catch (err) {
         alert('Failed to update slot completion: ' + err.message);
     }
+}
+
+// Pomodoro Timer Logic
+let pomoInterval;
+let pomoTimeLeft = 25 * 60; // 25 minutes
+let isPomoRunning = false;
+
+function formatPomoTime(seconds) {
+    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const s = (seconds % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+}
+
+function updatePomoDisplay() {
+    const display = document.getElementById('pomodoro-display');
+    if (display) display.textContent = formatPomoTime(pomoTimeLeft);
+}
+
+function startPomodoro() {
+    if (isPomoRunning) return;
+    isPomoRunning = true;
+    document.getElementById('pomo-start-btn').style.display = 'none';
+    document.getElementById('pomo-pause-btn').style.display = 'inline-flex';
+    document.getElementById('pomodoro-status').textContent = 'Focusing... stay on task!';
+    document.getElementById('pomodoro-status').style.color = 'var(--primary)';
+
+    pomoInterval = setInterval(() => {
+        if (pomoTimeLeft > 0) {
+            pomoTimeLeft--;
+            updatePomoDisplay();
+        } else {
+            clearInterval(pomoInterval);
+            isPomoRunning = false;
+            document.getElementById('pomodoro-status').textContent = 'Session Complete! Take a break.';
+            document.getElementById('pomodoro-status').style.color = 'var(--success)';
+            document.getElementById('pomo-start-btn').style.display = 'inline-flex';
+            document.getElementById('pomo-pause-btn').style.display = 'none';
+            pomoTimeLeft = 5 * 60; // Break time
+            updatePomoDisplay();
+            // Could add an API call here to automatically log study time
+        }
+    }, 1000);
+}
+
+function pausePomodoro() {
+    clearInterval(pomoInterval);
+    isPomoRunning = false;
+    document.getElementById('pomo-start-btn').style.display = 'inline-flex';
+    document.getElementById('pomo-pause-btn').style.display = 'none';
+    document.getElementById('pomodoro-status').textContent = 'Paused.';
+    document.getElementById('pomodoro-status').style.color = 'var(--text-secondary)';
+}
+
+function resetPomodoro() {
+    pausePomodoro();
+    pomoTimeLeft = 25 * 60;
+    updatePomoDisplay();
+    document.getElementById('pomodoro-status').textContent = 'Ready to focus?';
 }

@@ -28,9 +28,32 @@
             <div id="navbar-placeholder"></div>
 
             <!-- Page Title Header -->
-            <div class="page-title-header">
-                <h1>Welcome Back, <span id="student-name" class="text-gradient-primary">Student</span>!</h1>
-                <p>Here is your academic and study progress overview for today.</p>
+            <div class="page-title-header" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 15px;">
+                <div>
+                    <h1>Welcome Back, <span id="student-name" class="text-gradient-primary">Student</span>!</h1>
+                    <p>Here is your academic and study progress overview for today.</p>
+                </div>
+                <!-- Gamification Badge -->
+                <div class="gamification-badge glass-card" style="padding: 10px 20px; display: flex; gap: 20px; align-items: center; border-radius: 50px; margin-bottom: 0;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-fire" style="color: #f97316; font-size: 1.5rem;"></i>
+                        <div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Streak</div>
+                            <div id="stat-streak" style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary); line-height: 1;">0 Days</div>
+                        </div>
+                    </div>
+                    <div style="width: 1px; height: 30px; background: var(--border-color);"></div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-star" style="color: #eab308; font-size: 1.5rem;"></i>
+                        <div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Lvl <span id="stat-level">1</span></div>
+                            <div style="width: 100px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; margin-top: 4px; overflow: hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);">
+                                <div id="stat-xp-bar" style="height: 100%; width: 0%; background: linear-gradient(90deg, #eab308, #f59e0b);"></div>
+                            </div>
+                            <div id="stat-xp-text" style="font-size: 0.65rem; color: var(--text-muted); margin-top: 2px; text-align: right;">0 / 500 XP</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Stats Grid counters -->
@@ -89,29 +112,46 @@
                     </div>
                 </div>
 
-                <!-- Productivity Score Circle -->
-                <div class="glass-card" style="display: flex; flex-direction: column;">
-                    <div class="widget-header">
-                        <h2>Productivity Score</h2>
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <!-- Productivity Score Circle -->
+                    <div class="glass-card" style="display: flex; flex-direction: column; padding: 20px;">
+                        <div class="widget-header">
+                            <h2>Productivity Score</h2>
+                        </div>
+                        <div class="circle-progress-container" style="padding: 0;">
+                            <svg class="circle-svg" width="160" height="160" viewBox="0 0 200 200">
+                                <!-- Gradient -->
+                                <defs>
+                                    <linearGradient id="productivity-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="var(--primary)" />
+                                        <stop offset="100%" stop-color="var(--secondary)" />
+                                    </linearGradient>
+                                </defs>
+                                <circle class="circle-bg" cx="100" cy="100" r="80"></circle>
+                                <circle id="prod-progress-circle" class="circle-bar" cx="100" cy="100" r="80"></circle>
+                                <!-- Text overlay -->
+                                <text class="circle-text" x="100" y="105" text-anchor="middle">
+                                    <tspan id="prod-score-val">0</tspan>%
+                                </text>
+                                <text class="circle-label" x="100" y="130" text-anchor="middle">COMPLETED</text>
+                            </svg>
+                            <p class="productivity-tip" style="margin-top: 10px;">Complete your scheduled study blocks today to raise your score!</p>
+                        </div>
                     </div>
-                    <div class="circle-progress-container">
-                        <svg class="circle-svg" width="200" height="200" viewBox="0 0 200 200">
-                            <!-- Gradient -->
-                            <defs>
-                                <linearGradient id="productivity-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="var(--primary)" />
-                                    <stop offset="100%" stop-color="var(--secondary)" />
-                                </linearGradient>
-                            </defs>
-                            <circle class="circle-bg" cx="100" cy="100" r="80"></circle>
-                            <circle id="prod-progress-circle" class="circle-bar" cx="100" cy="100" r="80"></circle>
-                            <!-- Text overlay -->
-                            <text class="circle-text" x="100" y="105" text-anchor="middle">
-                                <tspan id="prod-score-val">0</tspan>%
-                            </text>
-                            <text class="circle-label" x="100" y="130" text-anchor="middle">COMPLETED</text>
-                        </svg>
-                        <p class="productivity-tip">Complete your scheduled study blocks today to raise your score!</p>
+
+                    <!-- Pomodoro Timer -->
+                    <div class="glass-card" style="padding: 20px; text-align: center; background: linear-gradient(145deg, rgba(20,20,30,0.8), rgba(30,30,40,0.8));">
+                        <div class="widget-header" style="justify-content: center; margin-bottom: 10px;">
+                            <h2 style="font-size: 1.1rem;"><i class="fas fa-stopwatch" style="color: var(--primary);"></i> Focus Timer</h2>
+                        </div>
+                        <div id="pomodoro-display" style="font-size: 3rem; font-family: var(--font-heading); font-weight: 800; letter-spacing: 2px; margin: 10px 0; color: var(--text-primary);">25:00</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 15px;" id="pomodoro-status">Ready to focus?</div>
+                        
+                        <div style="display: flex; justify-content: center; gap: 10px;">
+                            <button id="pomo-start-btn" onclick="startPomodoro()" class="btn-primary" style="padding: 8px 16px; border-radius: 20px;"><i class="fas fa-play"></i> Start</button>
+                            <button id="pomo-pause-btn" onclick="pausePomodoro()" class="btn-outline" style="padding: 8px 16px; border-radius: 20px; display: none;"><i class="fas fa-pause"></i> Pause</button>
+                            <button id="pomo-reset-btn" onclick="resetPomodoro()" class="btn-outline" style="padding: 8px 16px; border-radius: 20px; color: var(--text-muted);"><i class="fas fa-redo"></i> Reset</button>
+                        </div>
                     </div>
                 </div>
             </div>

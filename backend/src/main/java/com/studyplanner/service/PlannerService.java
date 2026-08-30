@@ -250,7 +250,31 @@ public class PlannerService {
             throw new RuntimeException("Error: Unauthorized study slot access.");
         }
 
-        slot.setCompleted(!slot.isCompleted());
+        User user = slot.getUser();
+        boolean wasCompleted = slot.isCompleted();
+        slot.setCompleted(!wasCompleted);
+
+        // Gamification logic
+        if (!wasCompleted) {
+            // Award XP
+            int xpGained = slot.getDurationMinutes(); // 1 XP per minute
+            user.setXp(user.getXp() + xpGained);
+            user.setLevel((user.getXp() / 500) + 1); // Level up every 500 XP
+
+            // Update Streak
+            LocalDate today = LocalDate.now();
+            if (user.getLastStudyDate() == null) {
+                user.setCurrentStreak(1);
+                user.setLastStudyDate(today);
+            } else if (user.getLastStudyDate().equals(today.minusDays(1))) {
+                user.setCurrentStreak(user.getCurrentStreak() + 1);
+                user.setLastStudyDate(today);
+            } else if (user.getLastStudyDate().isBefore(today.minusDays(1))) {
+                user.setCurrentStreak(1);
+                user.setLastStudyDate(today);
+            }
+            userService.updateUser(user);
+        }
         
         // Also update the completion status of the associated study task, if linked
         if (slot.getTask() != null) {
@@ -292,6 +316,8 @@ public class PlannerService {
             productivityScore = (int) Math.round((double) completedSlots * 100.0 / todaySlots.size());
         }
 
+        User user = userService.getUserById(userId);
+
         return new DashboardSummary(
                 subjectsCount,
                 totalTasks,
@@ -299,7 +325,10 @@ public class PlannerService {
                 upcomingExams,
                 hoursScheduled,
                 hoursCompleted,
-                productivityScore
+                productivityScore,
+                user.getXp() != null ? user.getXp() : 0,
+                user.getLevel() != null ? user.getLevel() : 1,
+                user.getCurrentStreak() != null ? user.getCurrentStreak() : 0
         );
     }
 
@@ -356,5 +385,37 @@ public class PlannerService {
         }
 
         return new WeeklyAnalyticsResponse(subjectProgresses, dailyCompletions);
+    }
+
+    public String exportToICal(Long userId) {
+        // Fetch all slots from today onwards
+        LocalDate today = LocalDate.now();
+        List<StudyPlanSlot> upcomingSlots = planSlotRepository.findByUserIdAndPlanDateBetweenOrderByPlanDateAscStartTimeAsc(
+                userId, today, today.plusDays(30)); // Export up to next 30 days
+
+        StringBuilder ical = new StringBuilder();
+        ical.append("BEGIN:VCALENDAR\r\n");
+        ical.append("VERSION:2.0\r\n");
+        ical.append("PRODID:-//Smart Study Planner//EN\r\n");
+        ical.append("CALSCALE:GREGORIAN\r\n");
+
+        java.time.format.DateTimeFormatter dtFormat = java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss");
+
+        for (StudyPlanSlot slot : upcomingSlots) {
+            LocalDateTime startDateTime = LocalDateTime.of(slot.getPlanDate(), slot.getStartTime());
+            LocalDateTime endDateTime = LocalDateTime.of(slot.getPlanDate(), slot.getEndTime());
+            String summary = slot.getTask() != null ? slot.getTask().getTitle() : slot.getSubject().getName() + " Study Session";
+
+            ical.append("BEGIN:VEVENT\r\n");
+            ical.append("UID:slot-").append(slot.getId()).append("@smartstudyplanner.com\r\n");
+            ical.append("DTSTAMP:").append(LocalDateTime.now().format(dtFormat)).append("Z\r\n");
+            ical.append("DTSTART;TZID=Asia/Kolkata:").append(startDateTime.format(dtFormat)).append("\r\n");
+            ical.append("DTEND;TZID=Asia/Kolkata:").append(endDateTime.format(dtFormat)).append("\r\n");
+            ical.append("SUMMARY:").append(summary).append("\r\n");
+            ical.append("DESCRIPTION:Study block for ").append(slot.getSubject().getName()).append("\r\n");
+            ical.append("END:VEVENT\r\n");
+        }
+        ical.append("END:VCALENDAR\r\n");
+        return ical.toString();
     }
 }

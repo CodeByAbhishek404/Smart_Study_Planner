@@ -63,4 +63,12 @@ public class PlannerController {
     public ResponseEntity<WeeklyAnalyticsResponse> getWeeklyAnalytics() {
         return ResponseEntity.ok(plannerService.getWeeklyAnalytics(getAuthenticatedUserId()));
     }
+
+    @GetMapping(value = "/export", produces = "text/calendar")
+    public ResponseEntity<String> exportSchedule() {
+        String icalData = plannerService.exportToICal(getAuthenticatedUserId());
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "attachment; filename=\"study_schedule.ics\"")
+                .body(icalData);
+    }
 }

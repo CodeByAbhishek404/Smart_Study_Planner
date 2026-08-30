@@ -66,6 +66,7 @@ async function loadSubjectsData() {
                     </div>
                 </div>
                 <div class="subject-card-actions">
+                    <button class="subject-action-btn" onclick="generateAITopics(${subject.id})" title="AI Auto-Generate Topics" style="background: linear-gradient(135deg, #a855f7, #6366f1); color: white; border: none; font-size: 1.1rem;"><i class="fas fa-magic"></i></button>
                     <button class="subject-action-btn" onclick="openEditSubjectModal(${subject.id})" title="Edit course"><i class="fas fa-edit"></i></button>
                     <button class="subject-action-btn delete" onclick="deleteSubject(${subject.id})" title="Delete course"><i class="fas fa-trash-alt"></i></button>
                 </div>
@@ -367,5 +368,30 @@ async function deleteExam(id) {
         loadExamsData();
     } catch (err) {
         alert('Failed to remove exam: ' + err.message);
+    }
+}
+
+// Auto Generate Topics with AI
+async function generateAITopics(id) {
+    if (!confirm('Do you want the AI to analyze this subject and generate recommended study topics?')) return;
+    
+    try {
+        // Show loading state
+        const btn = event.currentTarget;
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        btn.disabled = true;
+
+        await ApiClient.post(`/subjects/${id}/ai-generate-topics`);
+        
+        btn.innerHTML = originalHtml;
+        btn.disabled = false;
+
+        alert('AI successfully generated topics! Check your Topic Backlog in Tasks & Progress.');
+    } catch (err) {
+        alert('AI Generation failed: ' + err.message);
+        const btn = event.currentTarget;
+        btn.innerHTML = '<i class="fas fa-magic"></i>';
+        btn.disabled = false;
     }
 }

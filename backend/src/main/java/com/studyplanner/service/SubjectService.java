@@ -25,6 +25,9 @@ public class SubjectService {
     @Autowired
     UserService userService;
 
+    @Autowired
+    com.studyplanner.repository.StudyTaskRepository studyTaskRepository;
+
     public List<Subject> getSubjectsByUserId(Long userId) {
         return subjectRepository.findByUserId(userId);
     }
@@ -108,5 +111,27 @@ public class SubjectService {
         }
         
         examRepository.delete(exam);
+    }
+
+    @Transactional
+    public List<com.studyplanner.entity.StudyTask> generateAiTopics(Long subjectId, Long userId) {
+        Subject subject = getSubjectSecure(subjectId, userId);
+        
+        // Mock AI response logic based on subject name
+        String[] prefixes = {"Introduction to", "Advanced concepts in", "Practical applications of", "Review session for"};
+        java.util.List<com.studyplanner.entity.StudyTask> generatedTasks = new java.util.ArrayList<>();
+        
+        for (int i = 0; i < 4; i++) {
+            String title = prefixes[i] + " " + subject.getName();
+            com.studyplanner.entity.StudyTask task = new com.studyplanner.entity.StudyTask(
+                subject, 
+                title, 
+                2.0, // 2 hours estimated
+                java.time.LocalDate.now().plusDays(i * 2 + 2) // Spaced out due dates
+            );
+            generatedTasks.add(studyTaskRepository.save(task));
+        }
+        
+        return generatedTasks;
     }
 }

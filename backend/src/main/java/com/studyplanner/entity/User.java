@@ -42,6 +42,18 @@ public class User {
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @Column(name = "xp")
+    private Integer xp = 0;
+
+    @Column(name = "level")
+    private Integer level = 1;
+
+    @Column(name = "current_streak")
+    private Integer currentStreak = 0;
+
+    @Column(name = "last_study_date")
+    private java.time.LocalDate lastStudyDate;
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private UserPreference preference;
 
@@ -79,4 +91,16 @@ public class User {
 
     public UserPreference getPreference() { return preference; }
     public void setPreference(UserPreference preference) { this.preference = preference; }
+
+    public Integer getXp() { return xp; }
+    public void setXp(Integer xp) { this.xp = xp; }
+
+    public Integer getLevel() { return level; }
+    public void setLevel(Integer level) { this.level = level; }
+
+    public Integer getCurrentStreak() { return currentStreak; }
+    public void setCurrentStreak(Integer currentStreak) { this.currentStreak = currentStreak; }
+
+    public java.time.LocalDate getLastStudyDate() { return lastStudyDate; }
+    public void setLastStudyDate(java.time.LocalDate lastStudyDate) { this.lastStudyDate = lastStudyDate; }
 }

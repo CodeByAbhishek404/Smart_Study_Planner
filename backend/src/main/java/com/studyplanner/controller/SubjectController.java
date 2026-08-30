@@ -84,4 +84,13 @@ public class SubjectController {
             return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
         }
     }
+
+    @PostMapping("/{id}/ai-generate-topics")
+    public ResponseEntity<?> generateAiTopics(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(subjectService.generateAiTopics(id, getAuthenticatedUserId()));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
+        }
+    }
 }
