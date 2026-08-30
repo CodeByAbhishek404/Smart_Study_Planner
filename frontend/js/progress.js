@@ -285,7 +285,9 @@ function openEditTaskModal(id) {
 // Fetch Weekly Analytics and render progress charts (Pie & Bar)
 async function loadAnalyticsData() {
     try {
-        const analytics = await ApiClient.get('/planner/analytics');
+        const d = new Date();
+        const localDateStr = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+        const analytics = await ApiClient.get(`/planner/analytics?date=${localDateStr}`);
         renderHoursPieChart(analytics.subjectProgressList || []);
         renderWeeklyCompletionsBarChart(analytics.dailyCompletionList || []);
     } catch (err) {

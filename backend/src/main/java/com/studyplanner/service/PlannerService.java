@@ -296,14 +296,15 @@ public class PlannerService {
     }
 
 
-    public DashboardSummary getDashboardSummary(Long userId) {
+    public DashboardSummary getDashboardSummary(Long userId, LocalDate clientToday) {
+        if (clientToday == null) clientToday = LocalDate.now();
         int subjectsCount = subjectRepository.findByUserId(userId).size();
         
-        List<StudyPlanSlot> todaySlots = planSlotRepository.findByUserIdAndPlanDate(userId, LocalDate.now());
+        List<StudyPlanSlot> todaySlots = planSlotRepository.findByUserIdAndPlanDate(userId, clientToday);
         int totalTasks = todaySlots.size();
         int completedTasks = (int) todaySlots.stream().filter(StudyPlanSlot::isCompleted).count();
         
-        int upcomingExams = examRepository.findBySubjectUserIdAndExamDateAfterOrderByExamDateAsc(userId, LocalDateTime.now()).size();
+        int upcomingExams = examRepository.findBySubjectUserIdAndExamDateAfterOrderByExamDateAsc(userId, clientToday.atStartOfDay()).size();
         double hoursScheduled = todaySlots.stream().mapToDouble(StudyPlanSlot::getDurationMinutes).sum() / 60.0;
         double hoursCompleted = todaySlots.stream()
                 .filter(StudyPlanSlot::isCompleted)
@@ -332,8 +333,9 @@ public class PlannerService {
         );
     }
 
-    public WeeklyAnalyticsResponse getWeeklyAnalytics(Long userId) {
-        LocalDate today = LocalDate.now();
+    public WeeklyAnalyticsResponse getWeeklyAnalytics(Long userId, LocalDate clientToday) {
+        if (clientToday == null) clientToday = LocalDate.now();
+        LocalDate today = clientToday;
         // Calculate start of current week (Monday)
         LocalDate startOfWeek = today.minusDays(today.getDayOfWeek().getValue() - 1);
         LocalDate endOfWeek = startOfWeek.plusDays(6);

@@ -135,7 +135,7 @@ async function handleUpdateProfile(e) {
             lastName: lastNameInput.value,
             email: emailInput.value,
             dailyStudyHours,
-            preferredStartTime: `${preferredStartTime}:00` // Append seconds for LocalTime
+            preferredStartTime: preferredStartTime // Send as HH:mm
         });
 
         // Update cached localStorage copy

@@ -198,7 +198,7 @@ async function handleGenerateSchedule(e) {
 // Export schedule to iCal
 async function exportICal() {
     try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('jwt_token');
         if (!token) throw new Error('Not authenticated');
 
         // Create a hidden iframe or use fetch to download

@@ -55,13 +55,15 @@ public class PlannerController {
     }
 
     @GetMapping("/summary")
-    public ResponseEntity<DashboardSummary> getDashboardSummary() {
-        return ResponseEntity.ok(plannerService.getDashboardSummary(getAuthenticatedUserId()));
+    public ResponseEntity<DashboardSummary> getDashboardSummary(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return ResponseEntity.ok(plannerService.getDashboardSummary(getAuthenticatedUserId(), date));
     }
 
     @GetMapping("/analytics")
-    public ResponseEntity<WeeklyAnalyticsResponse> getWeeklyAnalytics() {
-        return ResponseEntity.ok(plannerService.getWeeklyAnalytics(getAuthenticatedUserId()));
+    public ResponseEntity<WeeklyAnalyticsResponse> getWeeklyAnalytics(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return ResponseEntity.ok(plannerService.getWeeklyAnalytics(getAuthenticatedUserId(), date));
     }
 
     @GetMapping(value = "/export", produces = "text/calendar")

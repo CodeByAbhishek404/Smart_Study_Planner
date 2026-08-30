@@ -92,13 +92,13 @@ public class User {
     public UserPreference getPreference() { return preference; }
     public void setPreference(UserPreference preference) { this.preference = preference; }
 
-    public Integer getXp() { return xp; }
+    public Integer getXp() { return xp != null ? xp : 0; }
     public void setXp(Integer xp) { this.xp = xp; }
 
-    public Integer getLevel() { return level; }
+    public Integer getLevel() { return level != null ? level : 1; }
     public void setLevel(Integer level) { this.level = level; }
 
-    public Integer getCurrentStreak() { return currentStreak; }
+    public Integer getCurrentStreak() { return currentStreak != null ? currentStreak : 0; }
     public void setCurrentStreak(Integer currentStreak) { this.currentStreak = currentStreak; }
 
     public java.time.LocalDate getLastStudyDate() { return lastStudyDate; }

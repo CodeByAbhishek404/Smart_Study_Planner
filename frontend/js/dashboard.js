@@ -14,13 +14,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function loadDashboardData() {
     try {
+        // Get user's local date in YYYY-MM-DD
+        const d = new Date();
+        const localDateStr = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+
         // Fetch dashboard statistics summary
-        const summary = await ApiClient.get('/planner/summary');
+        const summary = await ApiClient.get(`/planner/summary?date=${localDateStr}`);
         updateStatsCounters(summary);
         updateProductivityScore(summary.productivityScore);
 
         // Fetch today's study plan
-        const todayPlan = await ApiClient.get('/planner/daily');
+        const todayPlan = await ApiClient.get(`/planner/daily?date=${localDateStr}`);
         renderTodayPlan(todayPlan);
     } catch (err) {
         console.error('Error loading dashboard statistics:', err);
