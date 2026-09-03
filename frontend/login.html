@@ -62,7 +62,10 @@
                         <a href="#" id="forgot-password-link" style="font-size: 0.85rem; color: var(--primary); font-weight: 500; text-decoration: none; transition: var(--transition-fast);" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='var(--primary)'">Forgot Password?</a>
                     </div>
 
-                    <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Sign In</button>
+                    <button type="submit" id="login-submit-btn" class="btn-primary" style="width: 100%; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <i class="fas fa-spinner fa-spin" id="login-spinner" style="display: none;"></i>
+                        <span id="login-btn-text">Sign In</span>
+                    </button>
                 </form>
 
                 <!-- Footer link -->

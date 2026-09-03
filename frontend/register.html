@@ -69,7 +69,10 @@
                         <input type="password" id="password" class="input-field" placeholder="At least 6 characters" required>
                     </div>
 
-                    <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Sign Up</button>
+                    <button type="submit" id="register-submit-btn" class="btn-primary" style="width: 100%; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <i class="fas fa-spinner fa-spin" id="register-spinner" style="display: none;"></i>
+                        <span id="register-btn-text">Sign Up</span>
+                    </button>
                 </form>
 
                 <!-- Footer link -->

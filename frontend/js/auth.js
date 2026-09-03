@@ -62,11 +62,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!valid) return;
 
+            const submitBtn = document.getElementById('login-submit-btn');
+            const spinner = document.getElementById('login-spinner');
+            const btnText = document.getElementById('login-btn-text');
+
+            if (submitBtn) submitBtn.disabled = true;
+            if (spinner) spinner.style.display = 'inline-block';
+            if (btnText) btnText.textContent = 'Connecting...';
+
+            // Change text if it takes a while (Render free tier cold start)
+            const slowServerTimeout = setTimeout(() => {
+                if (btnText) btnText.textContent = 'Waking up server (takes ~50s)...';
+            }, 3000);
+
             try {
                 const response = await ApiClient.post('/auth/login', {
                     username: usernameInput.value,
                     password: passwordInput.value
                 });
+
+                clearTimeout(slowServerTimeout);
 
                 // Persist JWT and basic profile values
                 localStorage.setItem('jwt_token', response.accessToken);
@@ -82,6 +97,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 window.location.href = 'dashboard.html';
             } catch (err) {
+                clearTimeout(slowServerTimeout);
+                if (submitBtn) submitBtn.disabled = false;
+                if (spinner) spinner.style.display = 'none';
+                if (btnText) btnText.textContent = 'Sign In';
+
                 if (alertBox && alertText) {
                     const icon = alertBox.querySelector('i');
                     if (icon) icon.className = 'fas fa-exclamation-circle';
@@ -283,6 +303,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (!valid) return;
+            
+            const submitBtn = document.getElementById('register-submit-btn');
+            const spinner = document.getElementById('register-spinner');
+            const btnText = document.getElementById('register-btn-text');
+
+            if (submitBtn) submitBtn.disabled = true;
+            if (spinner) spinner.style.display = 'inline-block';
+            if (btnText) btnText.textContent = 'Connecting...';
+
+            // Change text if it takes a while (Render free tier cold start)
+            const slowServerTimeout = setTimeout(() => {
+                if (btnText) btnText.textContent = 'Waking up server (takes ~50s)...';
+            }, 3000);
 
             try {
                 await ApiClient.post('/auth/register', {
@@ -292,6 +325,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     firstName: firstNameInput.value,
                     lastName: lastNameInput.value
                 });
+
+                clearTimeout(slowServerTimeout);
+                if (submitBtn) submitBtn.disabled = false;
+                if (spinner) spinner.style.display = 'none';
+                if (btnText) btnText.textContent = 'Sign Up';
 
                 if (alertBox && alertText) {
                     const icon = alertBox.querySelector('i');
@@ -307,6 +345,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 2000);
 
             } catch (err) {
+                clearTimeout(slowServerTimeout);
+                if (submitBtn) submitBtn.disabled = false;
+                if (spinner) spinner.style.display = 'none';
+                if (btnText) btnText.textContent = 'Sign Up';
+
                 if (alertBox && alertText) {
                     const icon = alertBox.querySelector('i');
                     if (icon) icon.className = 'fas fa-exclamation-circle';
